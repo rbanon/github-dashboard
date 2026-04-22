@@ -268,7 +268,8 @@ This project is under the MIT license. See [LICENSE](./LICENSE) for details.
 
 ## 👨‍💻 Author
 
-Created as a portfolio project - GitHub Dashboard
+Created by Rafael Bañón as a portfolio project - GitHub Dashboard
+Favicon crateaad by Vecteezy
 
 ## 🐛 Issues & Support
 

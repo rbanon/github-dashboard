@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import type { GithubUser, GithubRepo, GithubEvent } from '../types/github'
 
 // Cache expiration time in milliseconds (5 minutes)
