@@ -1,7 +1,7 @@
 <template>
   <div v-if="Object.keys(languages).length > 0" class="chart-container">
     <h3 class="chart-title">{{ t('languages.title') }}</h3>
-    <div class="chart-wrapper">
+    <div v-if="props.showChart" class="chart-wrapper">
       <canvas ref="chartCanvas"></canvas>
     </div>
     <div class="languages-list">
@@ -27,6 +27,7 @@ let chartInstance: Chart | null = null
 
 const props = defineProps<{
   repos: GithubRepo[]
+  showChart: boolean
 }>()
 
 const languages = ref<Record<string, number>>({})
@@ -68,16 +69,21 @@ function calculateLanguages() {
     }
   })
 
-  // Ordenar por cantidad de descendente
   const sorted = Object.entries(langs)
     .sort(([, a], [, b]) => b - a)
-    .slice(0, 10) // Top 10 lenguajes
+    .slice(0, 10)
 
   languages.value = Object.fromEntries(sorted)
 }
 
 function createChart() {
-  if (!chartCanvas.value) return
+  if (!props.showChart || !chartCanvas.value) {
+    if (chartInstance) {
+      chartInstance.destroy()
+      chartInstance = null
+    }
+    return
+  }
 
   const labels = Object.keys(languages.value)
   const data = Object.values(languages.value)
@@ -112,7 +118,10 @@ function createChart() {
   })
 }
 
-watch(() => props.repos, () => {
+watch([
+  () => props.repos,
+  () => props.showChart
+], () => {
   calculateLanguages()
   createChart()
 }, { deep: true })

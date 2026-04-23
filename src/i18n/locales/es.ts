@@ -1,4 +1,7 @@
 export default {
+  common: {
+    close: 'Cerrar'
+  },
   header: {
     title: 'GitHub Dashboard',
     subtitle: 'Explora cualquier perfil de GitHub'
@@ -9,13 +12,18 @@ export default {
     error: 'Usuario no encontrado. Comprueba el nombre e inténtalo de nuevo.'
   },
   profile: {
+    title: 'Perfil',
     followers: 'Seguidores',
     following: 'Siguiendo',
     repos: 'Repos públicos',
     joined: 'Miembro desde',
     noLocation: 'Sin ubicación',
     noBio: 'Sin biografía',
-    viewProfile: 'Ver en GitHub'
+    viewProfile: 'Ver en GitHub',
+    viewMode: {
+      simple: 'Simple',
+      complete: 'Completo'
+    }
   },
   repos: {
     title: 'Repositorios destacados',
@@ -24,7 +32,47 @@ export default {
     fork: 'Fork',
     noDescription: 'Sin descripción',
     noRepos: 'No se encontraron repositorios públicos',
-    updated: 'Actualizado'
+    updated: 'Actualizado',
+    filters: {
+      title: 'Búsqueda Avanzada',
+      language: 'Lenguaje',
+      allLanguages: 'Todos los Lenguajes',
+      minStars: 'Estrellas Mínimas',
+      maxStars: 'Estrellas Máximas',
+      sortBy: 'Ordenar Por',
+      sortStars: 'Estrellas',
+      sortForks: 'Forks',
+      sortUpdated: 'Última Actualización',
+      sortName: 'Nombre',
+      sortOrder: 'Orden',
+      ascending: 'Ascendente',
+      descending: 'Descendente',
+      active: 'Filtros activos',
+      reset: 'Limpiar'
+    },
+    details: {
+      description: 'Descripción',
+      metrics: 'Métricas',
+      language: 'Lenguaje',
+      status: 'Estado',
+      active: 'Activo',
+      maintenance: 'Mantenimiento',
+      archived: 'Archivado',
+      dates: 'Fechas',
+      created: 'Creado',
+      lastUpdate: 'Última Actualización',
+      forkInfo: 'Información de Fork',
+      isForked: 'Este es un fork de',
+      links: 'Enlaces',
+      viewOnGithub: 'Ver en GitHub',
+      homepage: 'Página Principal',
+      name: 'Nombre',
+      action: 'Acción'
+    },
+    viewMode: {
+      simple: 'Grid',
+      detailed: 'Tabla'
+    }
   },
   languages: {
     title: 'Lenguajes más usados'

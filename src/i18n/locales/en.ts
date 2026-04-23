@@ -1,4 +1,7 @@
 export default {
+  common: {
+    close: 'Close'
+  },
   header: {
     title: 'GitHub Dashboard',
     subtitle: 'Explore any GitHub profile'
@@ -9,13 +12,18 @@ export default {
     error: 'User not found. Please check the username and try again.'
   },
   profile: {
+    title: 'Profile',
     followers: 'Followers',
     following: 'Following',
     repos: 'Public Repos',
     joined: 'Joined',
     noLocation: 'No location provided',
     noBio: 'No bio available',
-    viewProfile: 'View on GitHub'
+    viewProfile: 'View on GitHub',
+    viewMode: {
+      simple: 'Simple',
+      complete: 'Complete'
+    }
   },
   repos: {
     title: 'Top Repositories',
@@ -24,7 +32,47 @@ export default {
     fork: 'Fork',
     noDescription: 'No description available',
     noRepos: 'No public repositories found',
-    updated: 'Updated'
+    updated: 'Updated',
+    filters: {
+      title: 'Advanced Search',
+      language: 'Language',
+      allLanguages: 'All Languages',
+      minStars: 'Minimum Stars',
+      maxStars: 'Maximum Stars',
+      sortBy: 'Sort By',
+      sortStars: 'Stars',
+      sortForks: 'Forks',
+      sortUpdated: 'Last Updated',
+      sortName: 'Name',
+      sortOrder: 'Sort Order',
+      ascending: 'Ascending',
+      descending: 'Descending',
+      active: 'Active filters',
+      reset: 'Reset'
+    },
+    details: {
+      description: 'Description',
+      metrics: 'Metrics',
+      language: 'Language',
+      status: 'Status',
+      active: 'Active',
+      maintenance: 'Maintenance',
+      archived: 'Archived',
+      dates: 'Dates',
+      created: 'Created',
+      lastUpdate: 'Last Updated',
+      forkInfo: 'Fork Information',
+      isForked: 'This is a fork of',
+      links: 'Links',
+      viewOnGithub: 'View on GitHub',
+      homepage: 'Homepage',
+      name: 'Name',
+      action: 'Action'
+    },
+    viewMode: {
+      simple: 'Grid',
+      detailed: 'Table'
+    }
   },
   languages: {
     title: 'Most Used Languages'

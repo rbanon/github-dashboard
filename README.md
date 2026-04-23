@@ -108,20 +108,27 @@ npm run dev
 src/
 ├── components/
 │   ├── AppHeader.vue          # Sticky header with controls
-│   ├── SearchBar.vue          # User search
+│   ├── SearchBar.vue          # User search with history
 │   ├── UserProfile.vue        # Profile card
 │   ├── RepoCard.vue           # Individual repo card
 │   ├── ReposList.vue          # Repository grid
+│   ├── RepositoryFilter.vue   # Advanced search filters
 │   ├── LanguageChart.vue      # Doughnut chart of languages
 │   ├── ActivityFeed.vue       # Event timeline
+│   ├── SkeletonLoader.vue     # Loading placeholders
+│   ├── RateLimitInfo.vue      # Rate limit display
+│   ├── SearchHistory.vue      # Recent searches
+│   ├── ConfirmPopup.vue       # Confirmation modal
 │   └── icons/
 │       ├── IconGitHub.vue
 │       ├── IconSun.vue
 │       └── IconMoon.vue
 ├── services/
-│   └── githubApi.ts           # GitHub API functions
+│   └── githubApi.ts           # GitHub API with caching
 ├── composables/
-│   └── useTheme.ts            # Dark/light mode logic
+│   ├── useTheme.ts            # Dark/light mode logic
+│   ├── useSearchHistory.ts    # Recent searches management
+│   └── useRepoFilters.ts      # Repository filtering logic
 ├── types/
 │   └── github.ts              # Type interfaces
 ├── i18n/
@@ -130,7 +137,7 @@ src/
 │       ├── en.ts              # English translations
 │       └── es.ts              # Spanish translations
 ├── styles/
-│   └── main.scss              # Global styles
+│   └── main.scss              # Global styles & variables
 ├── App.vue                    # Root component
 └── main.ts                    # Entry point
 ```
@@ -208,14 +215,25 @@ npm run type-check # Check TypeScript types
   - API response caching (5-minute expiration)
   - Custom confirmation popups
   - Smooth state transitions
+- **Phase 3.2**: Advanced Search
+  - Filter repositories by programming language
+  - Stars range filtering (min-max)
+  - Multi-criteria sorting (stars, forks, updated, name)
+  - Sort order toggle (ascending/descending)
+  - Full i18n support (EN/ES)
+- **Phase 3.3**: Additional Analysis
+  - Repository detail side panel
+  - Health status indicators (Active/Maintenance/Archived)
+  - Enhanced metrics display
+  - Fork tracking with parent repo links
+  - Creation date and update tracking
+  - Repository view mode toggle: Switch between Grid and Table views
+  - User profile view mode toggle: Switch between Simple and Complete views
 
 ### In Development 🚀
 - **Phase 2.1**: Repository pagination (load more button, infinite scroll)
-- **Phase 3**: Advanced features
-  - User comparison (compare 2-3 profiles)
-  - Advanced search (filter by language, stars range, sorting)
-  - Contribution timeline and collaborator analysis
-  - Data export (PDF/CSV)
+- **Phase 3.1**: User comparison (compare 2-3 profiles side-by-side)
+- **Phase 3.4**: Data export (PDF/CSV)
 - **Phase 4**: Deployment & Testing
   - Deploy to GitHub Pages with GitHub Actions
   - Unit tests (Vitest)

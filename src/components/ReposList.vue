@@ -1,9 +1,14 @@
 <template>
   <div v-if="repos.length > 0" class="repos-container">
     <h3 class="repos-title">{{ t('repos.title') }}</h3>
-    <div class="repos-grid">
+    
+    <!-- Simple View (Grid) -->
+    <div v-if="isSimple" class="repos-grid">
       <RepoCard v-for="repo in repos" :key="repo.id" :repo="repo" />
     </div>
+
+    <!-- Detailed View (Table) -->
+    <RepoTable v-else :repos="repos" />
   </div>
   <div v-else class="repos-empty">
     <p>{{ t('repos.noRepos') }}</p>
@@ -12,10 +17,13 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRepoViewMode } from '../composables/useRepoViewMode'
 import RepoCard from './RepoCard.vue'
+import RepoTable from './RepoTable.vue'
 import type { GithubRepo } from '../types/github'
 
 const { t } = useI18n()
+const { isSimple } = useRepoViewMode()
 
 defineProps<{
   repos: GithubRepo[]

@@ -1,5 +1,5 @@
 <template>
-  <a :href="repo.html_url" target="_blank" class="repo-card">
+  <div class="repo-card" @click="handleCardClick">
     <div class="repo-header">
       <h3 class="repo-name">{{ repo.name }}</h3>
       <span v-if="repo.fork" class="fork-badge">{{ t('repos.fork') }}</span>
@@ -33,16 +33,24 @@
     <p class="repo-updated">
       {{ t('repos.updated') }}: {{ formatDate(repo.updated_at) }}
     </p>
-  </a>
+
+    <div class="repo-actions">
+      <a :href="repo.html_url" target="_blank" class="repo-link-btn" @click.stop>
+        🔗 {{ t('repos.details.viewOnGithub') }}
+      </a>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRepoDetails } from '../composables/useRepoDetails'
 import type { GithubRepo } from '../types/github'
 
 const { t } = useI18n()
+const { openDetails } = useRepoDetails()
 
-defineProps<{
+const props = defineProps<{
   repo: GithubRepo
 }>()
 
@@ -57,11 +65,16 @@ function formatDate(date: string): string {
     day: 'numeric'
   })
 }
+
+function handleCardClick(): void {
+  openDetails(props.repo)
+}
 </script>
 
 <style lang="scss" scoped>
 .repo-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -70,6 +83,7 @@ function formatDate(date: string): string {
   color: var(--text-primary);
   transition: all 0.2s ease;
   cursor: pointer;
+  height: 100%;
 
   &:hover {
     border-color: var(--accent);
@@ -80,59 +94,66 @@ function formatDate(date: string): string {
 
 .repo-header {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
 .repo-name {
+  margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--accent);
-  margin: 0;
+  color: var(--text-primary);
+  flex: 1;
   word-break: break-word;
 }
 
 .fork-badge {
-  display: inline-block;
-  background-color: var(--bg-tertiary);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.7rem;
   padding: 0.25rem 0.5rem;
+  background-color: var(--accent);
+  color: white;
   border-radius: 4px;
+  font-weight: 600;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .repo-description {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
   margin: 0 0 1rem 0;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+
+  &.text-secondary {
+    opacity: 0.7;
+  }
 }
 
 .repo-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  border-top: 1px solid var(--border-color);
-  margin-bottom: 0.75rem;
   gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .repo-stats {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .language-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  font-size: 0.875rem;
+  background-color: var(--bg-tertiary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
 }
 
 .language-dot {
@@ -146,23 +167,51 @@ function formatDate(date: string): string {
 .repo-metrics {
   display: flex;
   gap: 1rem;
-  font-size: 0.875rem;
-  color: var(--text-secondary);
 }
 
 .metric {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 .repo-updated {
-  font-size: 0.8rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  margin: 0;
 }
 
-.text-secondary {
-  color: var(--text-secondary) !important;
+.repo-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.repo-link-btn {
+  flex: 1;
+  padding: 0.65rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 </style>
