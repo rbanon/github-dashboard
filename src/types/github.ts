@@ -22,6 +22,12 @@ export interface GithubRepo {
   language: string | null
   updated_at: string
   fork: boolean
+  created_at: string
+  parent?: {
+    full_name: string
+    html_url: string
+  }
+  homepage: string | null
 }
 
 export interface GithubEvent {

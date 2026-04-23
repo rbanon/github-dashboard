@@ -39,7 +39,7 @@
         <select
           class="filter-select"
           :value="filters.language || ''"
-          @change="(e) => setFilter('language', e.target.value || null)"
+          @change="(e) => setFilter('language', (e.target as HTMLSelectElement).value || null)"
         >
           <option value="">{{ $t('repos.filters.allLanguages') }}</option>
           <option v-for="lang in availableLanguages" :key="lang" :value="lang">
@@ -59,7 +59,7 @@
           :value="filters.minStars"
           min="0"
           :max="maxStars"
-          @input="(e) => setFilter('minStars', Number(e.target.value))"
+          @input="(e) => setFilter('minStars', Number((e.target as HTMLInputElement).value))"
         />
       </div>
 
@@ -74,7 +74,7 @@
           :value="filters.maxStars === Infinity ? maxStars : filters.maxStars"
           min="0"
           :max="maxStars"
-          @input="(e) => setFilter('maxStars', Number(e.target.value) === maxStars ? Infinity : Number(e.target.value))"
+          @input="(e) => setFilter('maxStars', Number((e.target as HTMLInputElement).value) === maxStars ? Infinity : Number((e.target as HTMLInputElement).value))"
         />
       </div>
 
@@ -84,7 +84,7 @@
         <select
           class="filter-select"
           :value="filters.sortBy"
-          @change="(e) => setFilter('sortBy', e.target.value as any)"
+          @change="(e) => setFilter('sortBy', (e.target as HTMLSelectElement).value as any)"
         >
           <option value="stars">{{ $t('repos.filters.sortStars') }}</option>
           <option value="forks">{{ $t('repos.filters.sortForks') }}</option>

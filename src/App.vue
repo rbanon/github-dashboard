@@ -99,7 +99,7 @@ import type { GithubUser, GithubRepo, GithubEvent } from './types/github'
 
 const { t } = useI18n()
 const { filterRepos } = useRepoFilters()
-const { isSimple: isRepoSimple, setViewMode: setRepoViewMode } = useRepoViewMode()
+const { setViewMode: setRepoViewMode } = useRepoViewMode()
 const { isSimple: isProfileSimple, isComplete: isProfileComplete, setViewMode: setProfileViewMode } = useProfileViewMode()
 
 const currentUser = ref<GithubUser | null>(null)
@@ -107,7 +107,7 @@ const currentRepos = ref<GithubRepo[]>([])
 const currentEvents = ref<GithubEvent[]>([])
 const isLoading = ref(false)
 const error = ref('')
-const rateLimitRef = ref<InstanceType<typeof RateLimitInfo>>()
+// const rateLimitRef = ref<InstanceType<typeof RateLimitInfo>>() // Commented out - not used
 
 const filteredRepos = computed(() => {
   return filterRepos(currentRepos.value)
