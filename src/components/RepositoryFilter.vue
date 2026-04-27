@@ -3,7 +3,7 @@
     <div class="filter-header">
       <h4 class="filter-title">{{ $t('repos.filters.title') }}</h4>
       <div class="header-actions">
-        <div class="view-toggle">
+        <div v-if="showViewToggle" class="view-toggle">
           <button
             class="view-btn"
             :class="{ active: isSimple }"
@@ -134,6 +134,7 @@ import type { GithubRepo } from '../types/github'
 
 const props = defineProps<{
   repos: GithubRepo[]
+  showViewToggle?: boolean
 }>()
 
 const { filters, setFilter, resetFilters, hasActiveFilters, getUniqueLanguages, getMaxStars } =

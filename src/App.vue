@@ -59,7 +59,7 @@
           <ActivityFeed :events="currentEvents" />
 
           <!-- Advanced Repository Filter (only in complete view) -->
-          <RepositoryFilter v-if="!isProfileSimple" :repos="currentRepos" />
+          <RepositoryFilter v-if="!isProfileSimple" :repos="currentRepos" :show-view-toggle="!isProfileSimple" />
 
           <!-- Repositories List -->
           <ReposList :repos="filteredRepos" />
@@ -99,7 +99,7 @@ import type { GithubUser, GithubRepo, GithubEvent } from './types/github'
 
 const { t } = useI18n()
 const { filterRepos } = useRepoFilters()
-const { setViewMode: setRepoViewMode } = useRepoViewMode()
+const { setViewMode: setRepoViewMode, setLocked } = useRepoViewMode()
 const { isSimple: isProfileSimple, isComplete: isProfileComplete, setViewMode: setProfileViewMode } = useProfileViewMode()
 
 const currentUser = ref<GithubUser | null>(null)
@@ -109,15 +109,17 @@ const isLoading = ref(false)
 const error = ref('')
 // const rateLimitRef = ref<InstanceType<typeof RateLimitInfo>>() // Commented out - not used
 
+// Initialize repo view mode as locked since app starts in simple profile mode
+setLocked(true)
+
 const filteredRepos = computed(() => {
   return filterRepos(currentRepos.value)
 })
 
-// Force table view when profile is in simple mode
+// Force table view when profile is in simple mode, allow toggle in complete mode
 watch(isProfileSimple, (isSimple) => {
-  if (isSimple) {
-    setRepoViewMode('detailed')
-  }
+  console.log('Profile mode changed. isSimple:', isSimple)
+  setLocked(isSimple)
 })
 
 async function handleSearch(username: string) {
@@ -138,7 +140,7 @@ async function handleSearch(username: string) {
     currentRepos.value = repos
     currentEvents.value = events
     addSearch(username) // Store in search history
-    setRepoViewMode('simple')
+    setRepoViewMode('detailed')
   } catch (err) {
     if (err instanceof Error) {
       error.value = err.message
