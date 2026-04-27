@@ -199,3 +199,52 @@ export async function getLanguages(reposUrl: string): Promise<Record<string, num
 export function clearCache(): void {
   cache.clear()
 }
+
+/**
+ * Export repositories to CSV format
+ */
+export function exportReposToCSV(repos: GithubRepo[], username: string): void {
+  // Define CSV headers
+  const headers = ['Name', 'Description', 'Language', 'Stars', 'Forks', 'URL', 'Created', 'Updated']
+  
+  // Format rows
+  const rows = repos.map(repo => [
+    escapeCSVField(repo.name),
+    escapeCSVField(repo.description || ''),
+    repo.language || '',
+    repo.stargazers_count,
+    repo.forks_count,
+    repo.html_url,
+    new Date(repo.created_at).toLocaleDateString(),
+    new Date(repo.updated_at).toLocaleDateString()
+  ])
+  
+  // Combine headers and rows
+  const csvContent = [
+    headers.join(','),
+    ...rows.map(row => row.join(','))
+  ].join('\n')
+  
+  // Create blob and download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+  const link = document.createElement('a')
+  const url = URL.createObjectURL(blob)
+  
+  link.setAttribute('href', url)
+  link.setAttribute('download', `${username}-repos-${new Date().toISOString().split('T')[0]}.csv`)
+  link.style.visibility = 'hidden'
+  
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
+/**
+ * Escape CSV field values that contain special characters
+ */
+function escapeCSVField(field: string): string {
+  if (field.includes(',') || field.includes('"') || field.includes('\n')) {
+    return `"${field.replace(/"/g, '""')}"` 
+  }
+  return field
+}

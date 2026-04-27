@@ -38,6 +38,7 @@ export default {
     noDescription: 'Sin descripción',
     noRepos: 'No se encontraron repositorios públicos',
     updated: 'Actualizado',
+    export: 'Exportar a CSV',
     filters: {
       title: 'Búsqueda Avanzada',
       language: 'Lenguaje',

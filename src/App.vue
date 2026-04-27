@@ -71,6 +71,13 @@
           <!-- Advanced Repository Filter (only in complete view) -->
           <RepositoryFilter v-if="!isProfileSimple" :repos="currentRepos" :show-view-toggle="!isProfileSimple" />
 
+          <!-- Repositories Actions -->
+          <div v-if="filteredRepos.length > 0" class="repos-actions">
+            <button class="export-btn" @click="handleExportCSV" :title="t('repos.export')">
+              📥 {{ t('repos.export') }}
+            </button>
+          </div>
+
           <!-- Repositories List -->
           <ReposList :repos="filteredRepos" />
         </div>
@@ -111,7 +118,7 @@ import RepoDetailPanel from './components/RepoDetailPanel.vue'
 import SkeletonLoader from './components/SkeletonLoader.vue'
 import RateLimitInfo from './components/RateLimitInfo.vue'
 import NotificationPopup from './components/NotificationPopup.vue'
-import { getUser, getRepos, getEvents } from './services/githubApi'
+import { getUser, getRepos, getEvents, exportReposToCSV } from './services/githubApi'
 import { initRecentSearches, addSearch } from './composables/useSearchHistory'
 import { useRepoFilters } from './composables/useRepoFilters'
 import { useRepoViewMode } from './composables/useRepoViewMode'
@@ -187,6 +194,12 @@ function shareProfile() {
 
 function closeSharePopup() {
   showSharePopup.value = false
+}
+
+function handleExportCSV() {
+  if (currentUser.value && filteredRepos.value.length > 0) {
+    exportReposToCSV(filteredRepos.value, currentUser.value.login)
+  }
 }
 
 onMounted(() => {
@@ -319,6 +332,32 @@ body {
 
   &:hover {
     background-color: var(--accent-hover);
+  }
+}
+
+.repos-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.export-btn {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
