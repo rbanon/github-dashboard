@@ -1,21 +1,26 @@
 <template>
-  <div v-if="Object.keys(languages).length > 0" class="chart-container">
+  <div class="chart-container">
     <h3 class="chart-title">{{ t('languages.title') }}</h3>
-    <div v-if="props.showChart" class="chart-wrapper">
-      <canvas ref="chartCanvas"></canvas>
+    <div v-if="Object.keys(languages).length === 0" class="no-languages">
+      <p>{{ t('languages.noData') }}</p>
     </div>
-    <div class="languages-list">
-      <div v-for="(count, lang) in languages" :key="lang" class="language-item">
-        <span class="language-dot" :style="{ backgroundColor: getLanguageColor(lang as string) }"></span>
-        <span class="language-name">{{ lang }}</span>
-        <span class="language-count">{{ count }}</span>
+    <div v-else>
+      <div v-if="props.showChart" class="chart-wrapper">
+        <canvas ref="chartCanvas"></canvas>
+      </div>
+      <div class="languages-list">
+        <div v-for="(count, lang) in languages" :key="lang" class="language-item">
+          <span class="language-dot" :style="{ backgroundColor: getLanguageColor(lang as string) }"></span>
+          <span class="language-name">{{ lang }}</span>
+          <span class="language-count">{{ count }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Chart from 'chart.js/auto'
 import type { GithubRepo } from '../types/github'
@@ -64,7 +69,7 @@ function calculateLanguages() {
   const langs: Record<string, number> = {}
   
   props.repos.forEach(repo => {
-    if (repo.language && !repo.fork) {
+    if (repo.language) {
       langs[repo.language] = (langs[repo.language] || 0) + 1
     }
   })
@@ -122,13 +127,17 @@ watch([
   () => props.repos,
   () => props.showChart
 ], () => {
-  calculateLanguages()
-  createChart()
+  nextTick(() => {
+    calculateLanguages()
+    createChart()
+  })
 }, { deep: true })
 
 onMounted(() => {
-  calculateLanguages()
-  createChart()
+  nextTick(() => {
+    calculateLanguages()
+    createChart()
+  })
 })
 </script>
 
@@ -146,6 +155,13 @@ onMounted(() => {
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 1rem 0;
+}
+
+.no-languages {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 2rem;
 }
 
 .chart-wrapper {
