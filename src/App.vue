@@ -30,23 +30,33 @@
           <div class="profile-section">
             <div class="profile-header-controls">
               <h3 class="profile-section-title">{{ t('profile.title') }}</h3>
-              <div class="profile-view-toggle">
+              <div class="profile-controls">
                 <button 
-                  class="view-btn" 
-                  :class="{ active: isProfileSimple }" 
-                  @click="setProfileViewMode('simple')"
-                  :title="t('profile.viewMode.simple')"
+                  class="share-btn"
+                  @click="shareProfile"
+                  :title="t('profile.share')"
+                  v-if="currentUser"
                 >
-                  👤 {{ t('profile.viewMode.simple') }}
+                  🔗 {{ t('profile.share') }}
                 </button>
-                <button 
-                  class="view-btn" 
-                  :class="{ active: isProfileComplete }" 
-                  @click="setProfileViewMode('complete')"
-                  :title="t('profile.viewMode.complete')"
-                >
-                  📊 {{ t('profile.viewMode.complete') }}
-                </button>
+                <div class="profile-view-toggle">
+                  <button 
+                    class="view-btn" 
+                    :class="{ active: isProfileSimple }" 
+                    @click="setProfileViewMode('simple')"
+                    :title="t('profile.viewMode.simple')"
+                  >
+                    👤 {{ t('profile.viewMode.simple') }}
+                  </button>
+                  <button 
+                    class="view-btn" 
+                    :class="{ active: isProfileComplete }" 
+                    @click="setProfileViewMode('complete')"
+                    :title="t('profile.viewMode.complete')"
+                  >
+                    📊 {{ t('profile.viewMode.complete') }}
+                  </button>
+                </div>
               </div>
             </div>
             <UserProfile :user="currentUser" :is-simple="isProfileSimple" :repos="currentRepos" />
@@ -74,6 +84,16 @@
 
     <!-- Repository Detail Panel -->
     <RepoDetailPanel />
+
+    <!-- Share Profile Popup -->
+    <NotificationPopup
+      :is-open="showSharePopup"
+      :title="t('profile.share')"
+      :message="t('profile.shareSuccess')"
+      :content="shareUrl"
+      type="success"
+      @close="closeSharePopup"
+    />
   </div>
 </template>
 
@@ -90,6 +110,7 @@ import RepositoryFilter from './components/RepositoryFilter.vue'
 import RepoDetailPanel from './components/RepoDetailPanel.vue'
 import SkeletonLoader from './components/SkeletonLoader.vue'
 import RateLimitInfo from './components/RateLimitInfo.vue'
+import NotificationPopup from './components/NotificationPopup.vue'
 import { getUser, getRepos, getEvents } from './services/githubApi'
 import { initRecentSearches, addSearch } from './composables/useSearchHistory'
 import { useRepoFilters } from './composables/useRepoFilters'
@@ -108,6 +129,9 @@ const currentEvents = ref<GithubEvent[]>([])
 const isLoading = ref(false)
 const error = ref('')
 // const rateLimitRef = ref<InstanceType<typeof RateLimitInfo>>() // Commented out - not used
+
+const showSharePopup = ref(false)
+const shareUrl = ref('')
 
 // Initialize repo view mode as locked since app starts in simple profile mode
 setLocked(true)
@@ -153,9 +177,28 @@ async function handleSearch(username: string) {
   }
 }
 
+function shareProfile() {
+  if (currentUser.value) {
+    const url = `${window.location.origin}${window.location.pathname}?user=${currentUser.value.login}`
+    shareUrl.value = url
+    showSharePopup.value = true
+  }
+}
+
+function closeSharePopup() {
+  showSharePopup.value = false
+}
+
 onMounted(() => {
   // Initialize search history from localStorage
   initRecentSearches()
+
+  // Check for user parameter in URL
+  const urlParams = new URLSearchParams(window.location.search)
+  const userParam = urlParams.get('user')
+  if (userParam) {
+    handleSearch(userParam)
+  }
 })
 </script>
 
@@ -256,6 +299,27 @@ body {
   margin-bottom: 1rem;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.profile-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.share-btn {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
 }
 
 .profile-section-title {

@@ -1,6 +1,8 @@
 export default {
   common: {
-    close: 'Cerrar'
+    close: 'Cerrar',
+    copy: 'Copiar',
+    copied: '¡Copiado!'
   },
   header: {
     title: 'GitHub Dashboard',
@@ -20,6 +22,9 @@ export default {
     noLocation: 'Sin ubicación',
     noBio: 'Sin biografía',
     viewProfile: 'Ver en GitHub',
+    share: 'Compartir',
+    shareSuccess: '¡Enlace del perfil copiado al portapapeles!',
+    shareError: 'Error al copiar el enlace',
     viewMode: {
       simple: 'Simple',
       complete: 'Completo'

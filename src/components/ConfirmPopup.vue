@@ -107,6 +107,8 @@ function handleOverlayClick(): void {
   font-size: 1rem;
   line-height: 1.5;
   color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .popup-footer {
