@@ -3,11 +3,8 @@
     <div class="container header__inner">
 
       <div class="header__brand">
-        <IconGitHub class="header__logo" />
-        <div>
-          <h1 class="header__title">{{ t('header.title') }}</h1>
-          <p class="header__subtitle">{{ t('header.subtitle') }}</p>
-        </div>
+        <h1 class="header__title">{{ t('header.title') }}</h1>
+        <p class="header__subtitle">{{ t('header.subtitle') }}</p>
       </div>
 
       <div class="header__controls">
@@ -39,7 +36,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '../composables/useTheme'
-import IconGitHub from './icons/IconGitHub.vue'
 import IconSun from './icons/IconSun.vue'
 import IconMoon from './icons/IconMoon.vue'
 
@@ -70,28 +66,26 @@ function setLocale(lang: 'en' | 'es') {
 
   &__brand {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  &__logo {
-    width: 32px;
-    height: 32px;
-    fill: var(--text-primary);
-    flex-shrink: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
   }
 
   &__title {
-    font-size: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--text-primary);
     line-height: 1.2;
+    margin: 0;
   }
 
   &__subtitle {
-    font-size: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
     color: var(--text-secondary);
     line-height: 1.2;
+    margin: 0;
   }
 
   &__controls {
@@ -111,12 +105,13 @@ function setLocale(lang: 'en' | 'es') {
   background: none;
   border: none;
   color: var(--text-secondary);
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   padding: 0.25rem 0.35rem;
   border-radius: 4px;
-  transition: color 0.2s ease;
+  transition: color 0.15s;
 
   &.active {
     color: var(--accent);
