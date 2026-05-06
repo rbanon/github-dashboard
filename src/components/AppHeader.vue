@@ -3,7 +3,7 @@
     <div class="container header__inner">
 
       <div class="header__brand">
-        <h1 class="header__title">{{ t('header.title') }}</h1>
+        <h1 class="header__title">GitHub<span class="header__title-accent"> Dashboard</span></h1>
         <p class="header__subtitle">{{ t('header.subtitle') }}</p>
       </div>
 
@@ -72,12 +72,17 @@ function setLocale(lang: 'en' | 'es') {
   }
 
   &__title {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-family: var(--font-display);
+    font-size: 20px;
     font-weight: 600;
     color: var(--text-primary);
+    letter-spacing: -0.02em;
     line-height: 1.2;
     margin: 0;
+  }
+
+  &__title-accent {
+    color: var(--accent);
   }
 
   &__subtitle {
