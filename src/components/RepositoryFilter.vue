@@ -270,7 +270,7 @@ function handleResetFilters(): void {
   &:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1);
+    box-shadow: 0 0 0 2px var(--accent-dim);
   }
 }
 

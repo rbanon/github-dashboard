@@ -87,7 +87,7 @@ function handleCardClick(): void {
 
   &:hover {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    box-shadow: 0 0 0 3px var(--accent-dim);
     transform: translateY(-2px);
   }
 }
