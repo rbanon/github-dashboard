@@ -101,6 +101,9 @@
       type="success"
       @close="closeSharePopup"
     />
+
+    <!-- Footer -->
+    <AppFooter />
   </div>
 </template>
 
@@ -108,6 +111,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 import SearchBar from './components/SearchBar.vue'
 import UserProfile from './components/UserProfile.vue'
 import LanguageChart from './components/LanguageChart.vue'
@@ -215,44 +219,6 @@ onMounted(() => {
 })
 </script>
 
-<style lang="scss">
-@use './styles/main.scss' as *;
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  width: 100%;
-}
-
-.main-content {
-  flex: 1;
-  padding: 2rem 1rem;
-}
-</style>
 
 <style lang="scss" scoped>
 .loading-state,

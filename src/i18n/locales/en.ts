@@ -114,5 +114,9 @@ export default {
     networkError: 'Network error. Please check your connection.',
     rateLimitExceeded: 'Rate limit exceeded. Please try again later.',
     unknownError: 'An unexpected error occurred.'
+  },
+  footer: {
+    builtBy: 'Built by',
+    author: 'Rafael Bañon'
   }
 }

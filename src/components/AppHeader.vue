@@ -61,7 +61,7 @@ function setLocale(lang: 'en' | 'es') {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 56px;
   }
 
   &__brand {

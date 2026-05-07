@@ -114,5 +114,9 @@ export default {
     networkError: 'Error de red. Comprueba tu conexión.',
     rateLimitExceeded: 'Límite de velocidad excedido. Inténtalo más tarde.',
     unknownError: 'Ocurrió un error inesperado.'
+  },
+  footer: {
+    builtBy: 'Creado por',
+    author: 'Rafael Bañon'
   }
 }

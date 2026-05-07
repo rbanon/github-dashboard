@@ -151,5 +151,6 @@ function formatTime(date: string): string {
   padding: 2rem;
   text-align: center;
   color: var(--text-secondary);
+  margin-bottom: 2rem;
 }
 </style>
