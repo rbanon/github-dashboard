@@ -268,26 +268,13 @@ vercel
 
 Or simply connect the repo at [vercel.com](https://vercel.com)
 
-## 🤝 Contributing
-
-Contributions are welcome. For major changes:
-
-1. Fork the project
-2. Create a branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-See [CONTRIBUTING.md](./docs/CONTRIBUTING.md) for development guide
-
 ## 📝 License
 
 This project is under the MIT license. See [LICENSE](./LICENSE) for details.
 
 ## 👨‍💻 Author
 
-Created by Rafael Bañón as a portfolio project - GitHub Dashboard
-Favicon crateaad by Vecteezy
+Created by Rafael Bañón - Logo crateaad by Vecteezy
 
 ## 🐛 Issues & Support
 
