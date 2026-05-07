@@ -108,20 +108,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, defineAsyncComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import SearchBar from './components/SearchBar.vue'
-import UserProfile from './components/UserProfile.vue'
-import LanguageChart from './components/LanguageChart.vue'
-import ActivityFeed from './components/ActivityFeed.vue'
-import ReposList from './components/ReposList.vue'
-import RepositoryFilter from './components/RepositoryFilter.vue'
-import RepoDetailPanel from './components/RepoDetailPanel.vue'
-import SkeletonLoader from './components/SkeletonLoader.vue'
 import RateLimitInfo from './components/RateLimitInfo.vue'
-import NotificationPopup from './components/NotificationPopup.vue'
+
+const UserProfile = defineAsyncComponent(() => import('./components/UserProfile.vue'))
+const LanguageChart = defineAsyncComponent(() => import('./components/LanguageChart.vue'))
+const ActivityFeed = defineAsyncComponent(() => import('./components/ActivityFeed.vue'))
+const ReposList = defineAsyncComponent(() => import('./components/ReposList.vue'))
+const RepositoryFilter = defineAsyncComponent(() => import('./components/RepositoryFilter.vue'))
+const RepoDetailPanel = defineAsyncComponent(() => import('./components/RepoDetailPanel.vue'))
+const SkeletonLoader = defineAsyncComponent(() => import('./components/SkeletonLoader.vue'))
+const NotificationPopup = defineAsyncComponent(() => import('./components/NotificationPopup.vue'))
 import { getUser, getRepos, getEvents, exportReposToCSV } from './services/githubApi'
 import { initRecentSearches, addSearch } from './composables/useSearchHistory'
 import { useRepoFilters } from './composables/useRepoFilters'
